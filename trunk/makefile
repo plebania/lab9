@@ -14,9 +14,10 @@ CFLAGS= -I$(IDIR) -Wall -Wextra -pedantic
 OBJECTS  := $(SOURCES:$(SDIR)/%.c=$(ODIR)/%.o)
 
 $(BDIR)/$(TARGET): $(OBJECTS)
-	$(LINKER) $@ $(LFLAGS) $(OBJECTS)
-	@echo "Linking complete!"
+	gcc -o $@ $(LFLAGS) $(OBJECTS)
 
 $(OBJECTS): $(ODIR)/%.o : $(SDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compiled "$<" successfully!"
+
+
+

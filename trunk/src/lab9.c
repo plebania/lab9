@@ -6,6 +6,7 @@
 
 int main(int argc, char **argv)
 {
+    printf("test1");
     int res;
     Matrix *A = readFromFile(argc > 1 ? argv[1] : "A.txt");
     Matrix *b = readFromFile(argc > 2 ? argv[2] : "b.txt");
