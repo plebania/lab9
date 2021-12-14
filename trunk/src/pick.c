@@ -29,3 +29,5 @@ int pick(Matrix *mat, Matrix *b, int kol)
 	row_up(mat, b, nr_max);
 	return nr_max;
 }
+
+//git test
