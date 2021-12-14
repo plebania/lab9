@@ -1,31 +1,36 @@
 #include "pick.h"
 
-void row_up(Matrix *mat, Matrix *b, int r)
+int pick(Matrix* mat, Matrix* b, int nr_kolumny)
 {
-	double pom;
-	for (int x = 0; x < mat->r; x++)
-	{
-		pom = mat->data[0][x];
-		mat->data[0][x] = mat->data[r][x];
-		mat->data[r][x] = pom;
-	}
-	pom = b->data[0][0];
-	b->data[0][0] = b->data[r][0];
-	b->data[r][0] = pom;
+    double max = my_abs(mat->data[nr_kolumny][nr_kolumny]);
+    int max_id = nr_kolumny;
+    for (int j = nr_kolumny; j < mat->r; j++) {
+        if (my_abs(mat->data[j][nr_kolumny]) > max) {
+            max_id = j;
+            max = my_abs(mat->data[j][nr_kolumny]);
+        }
+    }
+    if (max_id != nr_kolumny) {
+        switch_rows(mat, nr_kolumny, max_id);
+        switch_rows(b, nr_kolumny, max_id);
+    }
+    return 0;
 }
 
-int pick(Matrix *mat, Matrix *b, int kol)
+void switch_rows(Matrix* a, int r1, int r2)
 {
-	double max = mat->data[kol][0];
-	int nr_max = 0;
-	for (int x = 0; x < mat->r; x++)
-	{
-		if (mat->data[kol][x] > max)
-		{
-			max = mat->data[kol][x];
-			nr_max = x;
-		}
-	}
-	row_up(mat, b, nr_max);
-	return nr_max;
+    double tmp;
+    for (int i = 0; i < a->c; i++) {
+        tmp = a->data[r1][i];
+        a->data[r1][i] = a->data[r2][i];
+        a->data[r2][i] = tmp;
+    }
+}
+
+double my_abs(double a)
+{
+    if (a > 0)
+        return a;
+    else
+        return -a;
 }
