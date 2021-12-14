@@ -1,6 +1,7 @@
 #include "gauss.h"
 #include "backsubst.h"
 #include "mat_io.h"
+#include "pick.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -16,6 +17,11 @@ int main(int argc, char **argv)
 		return -1;
 	if (b == NULL)
 		return -2;
+	printToScreen(A);
+	printToScreen(b);
+
+	printf("%d", pick(A, b, 2));
+
 	printToScreen(A);
 	printToScreen(b);
 
