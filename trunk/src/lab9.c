@@ -6,7 +6,7 @@
 
 int main(int argc, char **argv)
 {
-	printf("test1");
+	//printf("test1");
 	int res;
 	Matrix *A = readFromFile(argc > 1 ? argv[1] : "./dane/A.txt");
 	Matrix *b = readFromFile(argc > 2 ? argv[2] : "./dane/B.txt");
@@ -20,11 +20,14 @@ int main(int argc, char **argv)
 	printToScreen(b);
 
 	res = eliminate(A, b);
+	printToScreen(A);
+	printToScreen(b);
 	x = createMatrix(b->r, 1);
+
 	if (x != NULL)
 	{
 		res = backsubst(x, A, b);
-
+		printf("%d", res);
 		printToScreen(x);
 		freeMatrix(x);
 	}

@@ -2,8 +2,6 @@
 #define _GAUSS_H
 
 #include "mat_io.h"
-
-int pick(Matrix *);
+int pick(Matrix *mat, Matrix *b, int kol);
 
 #endif
-
