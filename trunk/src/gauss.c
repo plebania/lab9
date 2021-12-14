@@ -6,7 +6,7 @@
  */
 int eliminate(Matrix *mat, Matrix *b)
 {
-
+	pick(mat, b, 0);
 	for (int i = 1; i < mat->r; i++)
 	{ //i=1 i=2
 		for (int j = 0; j < i; j++)
@@ -19,6 +19,7 @@ int eliminate(Matrix *mat, Matrix *b)
 			if (b != NULL)
 				b->data[i][0] -= b->data[j][0] * skalar;
 		}
+		pick(mat, b, i);
 	}
 
 	return 0;
