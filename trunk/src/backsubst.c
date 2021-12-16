@@ -21,13 +21,10 @@ int backsubst(Matrix *x, Matrix *mat, Matrix *b)
 		x->data[y][0] = 0;
 		for (int i = mat->r - 1; i > y; i--)
 		{
-
 			x->data[y][0] -= mat->data[y][i] * x->data[i][0];
-			//printf("i=%d y=%d\nmat[y][i]=%lf x[i][0]=%lf\n", i, y, mat->data[y][i], x->data[i][0]);
 		}
 		x->data[y][0] += b->data[y][0];
 		x->data[y][0] /= mat->data[y][y];
-		//printf("x[y][0]=%lf\n", x->data[y][0]);
 	}
 	return 0;
 }

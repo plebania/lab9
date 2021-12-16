@@ -80,3 +80,14 @@ void freeMatrix(Matrix *mat)
 	free(mat->data);
 	free(mat);
 }
+
+int comp_matrix(Matrix *a, Matrix *b)
+{
+	if (a->r != b->r || a->c != b->c)
+		return 0;
+	for (int x = 0; x < a->c; x++)
+		for (int y = 0; y < a->r; y++)
+			if (a->data[x][y] != b->data[x][y])
+				return 0;
+	return 1;
+}
