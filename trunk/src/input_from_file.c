@@ -87,7 +87,7 @@ int comp_matrix(Matrix *a, Matrix *b)
 		return 0;
 	for (int x = 0; x < a->c; x++)
 		for (int y = 0; y < a->r; y++)
-			if (a->data[x][y] != b->data[x][y])
+			if ((a->data[x][y] - b->data[x][y]) * DUZO > 1 || (a->data[x][y] - b->data[x][y]) * DUZO < -1)
 				return 0;
 	return 1;
 }

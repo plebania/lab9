@@ -5,10 +5,12 @@
 #include "testy_marcin.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+//#define TEST 1
 int main(int argc, char **argv)
 {
+#ifdef TEST
 	testy();
+#else
 	int res;
 	Matrix *A = readFromFile(argc > 1 ? argv[1] : "./dane/A.txt");
 	Matrix *b = readFromFile(argc > 2 ? argv[2] : "./dane/B.txt");
@@ -55,5 +57,7 @@ int main(int argc, char **argv)
 
 	freeMatrix(A);
 	freeMatrix(b);
+#endif
+
 	return 0;
 }

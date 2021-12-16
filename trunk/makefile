@@ -8,7 +8,8 @@ BDIR= ./bin
 SOURCES  := $(wildcard $(SDIR)/*.c)
 INCLUDES := $(wildcard $(IDIR)/*.h)
 
-CFLAGS= -I$(IDIR) -Wall -Wextra -pedantic
+InCFLAGS= -I$(IDIR)
+
 
 
 OBJECTS  := $(SOURCES:$(SDIR)/%.c=$(ODIR)/%.o)
@@ -17,7 +18,7 @@ $(BDIR)/$(TARGET): $(OBJECTS)
 	gcc -o $@ $(LFLAGS) $(OBJECTS)
 
 $(OBJECTS): $(ODIR)/%.o : $(SDIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(InCFLAGS) -c $< -o $@
 
 
 

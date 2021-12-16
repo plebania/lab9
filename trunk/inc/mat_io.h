@@ -1,6 +1,6 @@
 #ifndef _MAT_IO_H
 #define _MAT_IO_H
-
+#define DUZO 999999
 typedef struct _Matrix
 {
         int r, c;

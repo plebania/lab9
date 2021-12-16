@@ -3,6 +3,7 @@
         "stdlib.h": "c",
         "mat_io.h": "c",
         "testy_marcin.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "backsubst.h": "c"
     }
 }
