@@ -1,26 +1,85 @@
 #include "test_rozwiazania.h"
+#define ilosc_testow 2
 
-int test(Matrix *x, Matrix *mat, Matrix *b)
-{ //zwraca 1 jesli uklad nie zostal rozwiazany prawidlowo,
-    //zwraca 0 w przeciwnym wypadku
+void test_1() {
 
-    printf("test rozwiazania: \n");
-    for (int i = 0; i < mat->r; i++)
+    char nazwa_pliku[50];
+    int bledy = 0;
+
+    for (int nr = 1; nr <= ilosc_testow ; nr++)
     {
-        double suma = 0;
-        printf("%d rownanie: ", i + 1);
-        for (int j = 0; j < mat->c; j++)
-        {
-            suma += mat->data[i][j] * x->data[j][0];
-            printf("%.2lf * %.2lf + ", mat->data[i][j], x->data[j][0]);
+        sprintf(nazwa_pliku, "./dane/testy/test%c_A.txt", nr + '0');
+        Matrix* A = readFromFile(nazwa_pliku);
+        sprintf(nazwa_pliku, "./dane/testy/test%c_B.txt", nr + '0');
+        Matrix* b = readFromFile(nazwa_pliku);
+        sprintf(nazwa_pliku, "./dane/testy/test%c_out.txt", nr + '0');
+        Matrix* out = readFromFile(nazwa_pliku);
+        if (A == NULL || b == NULL || out == NULL) {
+            printf("Nie udalo sie wczytac jednego z macierzy\n");
+            freeMatrix(A);
+            freeMatrix(b);
+            freeMatrix(out);
+            bledy++; 
+            continue;
+            
         }
-        if (suma == b->data[i][0])
-            printf("= %.2lf, powinno byc %.2lf - jest okej\n", suma, b->data[i][0]);
-        else
-        {
-            printf("= %.2lf, powinno byc %.2lf - NIE ZGADZA SIE!\n", suma, b->data[i][0]);
-            return 1;
+        int result_eliminate = eliminate(A, b);
+
+        if (result_eliminate != 0) {
+            printf("Nie udalo sie utowrzyc macierzy schodkowej\n");
+            freeMatrix(A);
+            freeMatrix(b);
+            freeMatrix(out);
+            bledy++;
+            continue;
+        }
+
+        Matrix* x = createMatrix(A->r, 1);
+        if (x != NULL) {
+
+            int result_backsubst = backsubst(x, A, b);
+            if (result_backsubst == 2) {
+                printf("Wczytano macierz o blednych wymiarach\n");
+                freeMatrix(A);
+                freeMatrix(b);
+                freeMatrix(out);
+                freeMatrix(x);
+                bledy++;
+                continue;
+            }
+            if (result_backsubst == 1) {
+                printf("Wczytano macierz osobliwa \n");
+                freeMatrix(A);
+                freeMatrix(b);
+                freeMatrix(out);
+                freeMatrix(x);
+                bledy++;
+                continue;
+            }
+            if (comp_matrix(x, out) == 0) {
+                printf("Wynik rozny od przeiwdywanego:\n");
+                printf("Oczekiwany macierz z pliku _out:\n");
+                printToScreen(out);
+                printf("Macierz wynikowa x:\n");
+                printToScreen(x);
+                freeMatrix(A);
+                freeMatrix(b);
+                freeMatrix(out);
+                freeMatrix(x);
+                bledy++;
+                continue;
+            }
+        }
+        else {
+            printf("Nie mozna utworzyc macierza z wynikami\n");
+            freeMatrix(A);
+            freeMatrix(b);
+            freeMatrix(out);
+            bledy++;
+            continue;
         }
     }
-    return 0;
+    if (bledy == 0) {
+        printf("Sprawdzanie przebieglo pomyslnie, nie wykryto bledow \n");
+    }
 }

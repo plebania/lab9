@@ -5,6 +5,7 @@
 #include "backsubst.h"
 #include "mat_io.h"
 #include "stdio.h"
-int test_rozwiazania(Matrix *, Matrix *, Matrix *);
+
+void test_1();
 
 #endif // !_TEST_ROWZWIAZANIA_H_
