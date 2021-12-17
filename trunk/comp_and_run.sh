@@ -1,3 +1,3 @@
 #!/bin/bash
-make -B CFLAGS=$(-Wall, -Wextra, -pedantic)
+make
 ./bin/lab9

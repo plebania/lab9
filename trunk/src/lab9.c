@@ -3,12 +3,16 @@
 #include "mat_io.h"
 #include "pick.h"
 #include "testy_marcin.h"
+#include "test_rozwiazania.h"
 #include <stdlib.h>
 #include <stdio.h>
 //#define TEST 1
 int main(int argc, char **argv)
 {
 #ifdef TEST
+	printf("\nTEST 1: ");
+	test_1();
+	printf("\nTEST 2: ");
 	testy();
 #else
 	int res;
